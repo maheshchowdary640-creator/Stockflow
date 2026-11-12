@@ -84,22 +84,26 @@ export default function DashboardOverviewPage() {
     (p) => p.quantity_on_hand <= (p.low_stock_threshold ?? defaultThreshold)
   );
 
-  // Inventory Cost Value = Σ (qty × cost_price); null cost_price treated as 0
+  // Inventory Cost Value = Σ (qty × cost_price); null or missing cost_price treated safely as 0
   const totalCostValue = products.reduce((acc, p) => {
     const cost =
       p.cost_price !== null && p.cost_price !== undefined
         ? parseFloat(p.cost_price)
         : 0;
-    return acc + (p.quantity_on_hand || 0) * cost;
+    const safeCost = isNaN(cost) || cost < 0 ? 0 : cost;
+    const qty = Math.max(0, p.quantity_on_hand || 0);
+    return acc + qty * safeCost;
   }, 0);
 
-  // Potential Sales Value = Σ (qty × selling_price); null selling_price treated as 0
+  // Potential Sales Value = Σ (qty × selling_price); null or missing selling_price treated safely as 0
   const totalSalesValue = products.reduce((acc, p) => {
     const price =
       p.selling_price !== null && p.selling_price !== undefined
         ? parseFloat(p.selling_price)
         : 0;
-    return acc + (p.quantity_on_hand || 0) * price;
+    const safePrice = isNaN(price) || price < 0 ? 0 : price;
+    const qty = Math.max(0, p.quantity_on_hand || 0);
+    return acc + qty * safePrice;
   }, 0);
 
   const recentProducts = products.slice(0, 5);

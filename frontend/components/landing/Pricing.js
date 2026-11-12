@@ -6,7 +6,7 @@ const plans = [
   {
     name: 'Starter / Free',
     badge: 'Free Forever',
-    price: '$0',
+    price: '₹0',
     frequency: 'free during beta',
     description: 'Perfect for small shops, boutiques, and solopreneurs organizing their initial inventory.',
     features: [
@@ -23,7 +23,7 @@ const plans = [
   {
     name: 'Professional',
     badge: 'Most Popular',
-    price: '$29',
+    price: '₹2,499',
     frequency: 'illustrative / coming soon',
     description: 'Ideal for established retail and growing e-commerce businesses scaling catalog operations.',
     features: [
@@ -40,7 +40,7 @@ const plans = [
   {
     name: 'Business',
     badge: 'Enterprise Grade',
-    price: '$79',
+    price: '₹6,499',
     frequency: 'illustrative / coming soon',
     description: 'High-volume businesses requiring custom integrations and dedicated support.',
     features: [

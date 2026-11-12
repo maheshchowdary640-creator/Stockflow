@@ -5,7 +5,7 @@ import {
   Package,
   Boxes,
   AlertTriangle,
-  DollarSign,
+  IndianRupee,
   TrendingUp,
   CheckCircle,
   BarChart3,
@@ -123,9 +123,9 @@ export default function Hero() {
                 <div className="bg-slate-50/80 rounded-xl p-3.5 border border-slate-100">
                   <div className="flex items-center justify-between text-slate-500 mb-1">
                     <span className="text-xs font-medium">Inventory Value</span>
-                    <DollarSign className="w-4 h-4 text-emerald-600" />
+                    <IndianRupee className="w-4 h-4 text-emerald-600" />
                   </div>
-                  <p className="text-xl font-bold text-slate-900">$184,200</p>
+                  <p className="text-xl font-bold text-slate-900">₹18,42,000</p>
                   <p className="text-[11px] text-slate-500 font-medium mt-0.5">Estimated valuation</p>
                 </div>
               </div>

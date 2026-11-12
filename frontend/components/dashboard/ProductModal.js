@@ -196,7 +196,7 @@ export default function ProductModal({
             {/* Cost Price */}
             <div>
               <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
-                Cost Price ($)
+                Cost Price (₹)
               </label>
               <input
                 type="number"
@@ -212,7 +212,7 @@ export default function ProductModal({
             {/* Selling Price */}
             <div>
               <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
-                Selling Price ($)
+                Selling Price (₹)
               </label>
               <input
                 type="number"

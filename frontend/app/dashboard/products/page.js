@@ -44,6 +44,14 @@ function ProductsPageInner() {
   );
   const [defaultThreshold, setDefaultThreshold] = useState(5);
 
+  // Sync state if URL query param changes
+  useEffect(() => {
+    const filterFromUrl = searchParams.get('filter');
+    if (filterFromUrl) {
+      setStatusFilter(filterFromUrl);
+    }
+  }, [searchParams]);
+
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -271,7 +279,7 @@ function ProductsPageInner() {
 
                       {/* Quantity */}
                       <td className="py-4 px-6 text-center font-bold text-slate-900">
-                        {p.quantity_on_hand.toLocaleString()}
+                        {p.quantity_on_hand.toLocaleString('en-IN')}
                       </td>
 
                       {/* Stock Status */}
@@ -286,14 +294,14 @@ function ProductsPageInner() {
                       {/* Cost Price */}
                       <td className="py-4 px-6 text-right font-medium text-slate-600">
                         {p.cost_price !== null && p.cost_price !== undefined
-                          ? `$${parseFloat(p.cost_price).toFixed(2)}`
+                          ? formatINR(parseFloat(p.cost_price))
                           : '—'}
                       </td>
 
                       {/* Selling Price */}
                       <td className="py-4 px-6 text-right font-bold text-slate-900">
                         {p.selling_price !== null && p.selling_price !== undefined
-                          ? `$${parseFloat(p.selling_price).toFixed(2)}`
+                          ? formatINR(parseFloat(p.selling_price))
                           : '—'}
                       </td>
 
@@ -386,19 +394,23 @@ function ProductsPageInner() {
                 <div>
                   <p className="text-slate-400 uppercase tracking-wider font-semibold">Quantity on Hand</p>
                   <p className="font-bold text-slate-900 mt-0.5 text-sm">
-                    {viewProductTarget.quantity_on_hand} units
+                    {viewProductTarget.quantity_on_hand.toLocaleString('en-IN')} units
                   </p>
                 </div>
                 <div>
                   <p className="text-slate-400 uppercase tracking-wider font-semibold">Cost Price</p>
                   <p className="font-semibold text-slate-700 mt-0.5">
-                    {viewProductTarget.cost_price ? `$${parseFloat(viewProductTarget.cost_price).toFixed(2)}` : '—'}
+                    {viewProductTarget.cost_price !== null && viewProductTarget.cost_price !== undefined
+                      ? formatINR(parseFloat(viewProductTarget.cost_price))
+                      : '—'}
                   </p>
                 </div>
                 <div>
                   <p className="text-slate-400 uppercase tracking-wider font-semibold">Selling Price</p>
                   <p className="font-bold text-slate-900 mt-0.5">
-                    {viewProductTarget.selling_price ? `$${parseFloat(viewProductTarget.selling_price).toFixed(2)}` : '—'}
+                    {viewProductTarget.selling_price !== null && viewProductTarget.selling_price !== undefined
+                      ? formatINR(parseFloat(viewProductTarget.selling_price))
+                      : '—'}
                   </p>
                 </div>
                 <div>
@@ -410,7 +422,7 @@ function ProductsPageInner() {
                 <div>
                   <p className="text-slate-400 uppercase tracking-wider font-semibold">Created Date</p>
                   <p className="text-slate-600 mt-0.5">
-                    {new Date(viewProductTarget.created_at).toLocaleDateString()}
+                    {new Date(viewProductTarget.created_at).toLocaleDateString('en-IN')}
                   </p>
                 </div>
               </div>
@@ -433,5 +445,20 @@ function ProductsPageInner() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="py-20 flex flex-col items-center justify-center text-slate-400 text-sm gap-2">
+          <Loader2 className="w-6 h-6 animate-spin text-indigo-600" />
+          Loading products...
+        </div>
+      }
+    >
+      <ProductsPageInner />
+    </Suspense>
   );
 }

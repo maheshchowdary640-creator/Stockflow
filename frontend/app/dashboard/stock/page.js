@@ -257,7 +257,7 @@ export default function StockManagementPage() {
                       {/* Current Recorded Qty */}
                       <td className="py-4 px-6 text-center">
                         <span className="text-base font-black text-slate-900">
-                          {p.quantity_on_hand.toLocaleString()}
+                          {p.quantity_on_hand.toLocaleString('en-IN')}
                         </span>
                         <span className="text-xs text-slate-400 block">units</span>
                       </td>
